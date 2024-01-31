@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useCallback } from "react";
 import { AppContext } from "../context/AppContext";
 
 export default function Blogs() {
@@ -12,14 +12,16 @@ export default function Blogs() {
     theme,
   } = useContext(AppContext);
 
+  const memoizedFetchBlogPosts = useCallback(fetchBlogPosts, [fetchBlogPosts]);
+
   useEffect(() => {
     const fetchData = async () => {
-      await fetchBlogPosts(page);
+      console.log("useEffect is running");
+      await memoizedFetchBlogPosts(page);
     };
 
     fetchData();
-  }, [fetchBlogPosts, page]);
-
+  }, [memoizedFetchBlogPosts, page]);
   return (
     <div
       className={`py-4 flex flex-col flex-wrap justify-center ${
