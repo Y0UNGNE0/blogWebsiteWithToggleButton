@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { AppContext } from "../context/AppContext";
 
 export default function Blogs() {
@@ -12,25 +12,14 @@ export default function Blogs() {
     theme,
   } = useContext(AppContext);
 
-  const [isMounted, setIsMounted] = useState(false);
-
   useEffect(() => {
-    setIsMounted(true);
-
     const fetchData = async () => {
-      // Fetch data only when the component is mounted
-      if (isMounted) {
-        await fetchBlogPosts();
-      }
+      await fetchBlogPosts(page);
     };
 
     fetchData();
+  }, [fetchBlogPosts, page]);
 
-    return () => {
-      // Cleanup function to set isMounted to false when component unmounts
-      setIsMounted(false);
-    };
-  }, [fetchBlogPosts, isMounted]);
   return (
     <div
       className={`py-4 flex flex-col flex-wrap justify-center ${
