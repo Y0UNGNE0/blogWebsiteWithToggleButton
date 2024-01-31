@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect ,useCallback } from "react";
 import { AppContext } from "../context/AppContext";
 
 export default function Blogs() {
@@ -12,9 +12,16 @@ export default function Blogs() {
     theme,
   } = useContext(AppContext);
 
+  const memoizedFetchBlogPosts = useCallback(fetchBlogPosts, [fetchBlogPosts]);
+
   useEffect(() => {
-    fetchBlogPosts();
-  }, []);
+    const fetchData = async () => {
+      console.log("useEffect is running");
+      await memoizedFetchBlogPosts(page);
+    };
+
+    fetchData();
+  }, [memoizedFetchBlogPosts, page, fetchBlogPosts]); /
 
   return (
     <div
