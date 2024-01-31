@@ -1,4 +1,4 @@
-import React, { useContext, useEffect ,useCallback } from "react";
+import React, { useContext, useEffect, useCallback } from "react";
 import { AppContext } from "../context/AppContext";
 
 export default function Blogs() {
@@ -21,7 +21,7 @@ export default function Blogs() {
     };
 
     fetchData();
-  }, [memoizedFetchBlogPosts, page, fetchBlogPosts]); /
+  }, [memoizedFetchBlogPosts, page, fetchBlogPosts]);
 
   return (
     <div
@@ -29,7 +29,7 @@ export default function Blogs() {
         theme === "dark" ? "dark" : ""
       }`}
     >
-      {loading && <p className="text-xl text-purple-600">Loading...</p>}
+      {loading && <p className="text-xl text-purple-600">Loadingg...</p>}
       {!loading && post.length === 0 && <p>No blog posts found.</p>}
       {post.map((blog) => (
         <div key={blog.id} className="py-4 justify-center self-center">
