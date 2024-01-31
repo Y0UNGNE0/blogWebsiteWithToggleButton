@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useCallback } from "react";
+import React, { useContext, useEffect } from "react";
 import { AppContext } from "../context/AppContext";
 
 export default function Blogs() {
@@ -12,16 +12,10 @@ export default function Blogs() {
     theme,
   } = useContext(AppContext);
 
-  const memoizedFetchBlogPosts = useCallback(fetchBlogPosts, [fetchBlogPosts]);
-
+  // eslint-disable-next-line
   useEffect(() => {
-    const fetchData = async () => {
-      console.log("useEffect is running");
-      await memoizedFetchBlogPosts(page);
-    };
-
-    fetchData();
-  }, [memoizedFetchBlogPosts, page, fetchBlogPosts]);
+    fetchBlogPosts();
+  }, []);
 
   return (
     <div
@@ -29,7 +23,7 @@ export default function Blogs() {
         theme === "dark" ? "dark" : ""
       }`}
     >
-      {loading && <p className="text-xl text-purple-600">Loadingg...</p>}
+      {loading && <p className="text-xl text-purple-600">Loading...</p>}
       {!loading && post.length === 0 && <p>No blog posts found.</p>}
       {post.map((blog) => (
         <div key={blog.id} className="py-4 justify-center self-center">
