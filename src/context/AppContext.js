@@ -10,9 +10,9 @@ export default function AppContextProvider({ children }) {
   const [totalpage, setTotalpage] = useState(null);
   const [theme, setTheme] = useState("light"); // Added theme state
 
-  async function fetchBlogPosts(page = 1) {
+  async function fetchBlogPosts(newPage = 1) {
     setLoading(true);
-    let url = `${baseUrl}?page=${page}`;
+    let url = `${baseUrl}?page=${newPage}`;
     try {
       const result = await fetch(url);
       const data = await result.json();
@@ -28,6 +28,11 @@ export default function AppContextProvider({ children }) {
     setLoading(false);
   }
 
+  function handlePageChange(newPage) {
+    setPage(newPage);
+    fetchBlogPosts(newPage);
+  }
+
   const toggleTheme = () => {
     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
   };
@@ -40,17 +45,12 @@ export default function AppContextProvider({ children }) {
     page,
     setPage,
     totalpage,
-    setLoading,
+    setTotalpage, // Fix: Replace setLoading with setTotalpage
     handlePageChange,
     fetchBlogPosts,
     theme,
     toggleTheme,
   };
-
-  function handlePageChange(page) {
-    setPage(page);
-    fetchBlogPosts(page);
-  }
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 }

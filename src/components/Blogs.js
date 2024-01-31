@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AppContext } from "../context/AppContext";
 
 export default function Blogs() {
@@ -12,10 +12,25 @@ export default function Blogs() {
     theme,
   } = useContext(AppContext);
 
-  useEffect(() => {
-    fetchBlogPosts();
-  }, []);
+  const [isMounted, setIsMounted] = useState(false);
 
+  useEffect(() => {
+    setIsMounted(true);
+
+    const fetchData = async () => {
+      // Fetch data only when the component is mounted
+      if (isMounted) {
+        await fetchBlogPosts();
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      // Cleanup function to set isMounted to false when component unmounts
+      setIsMounted(false);
+    };
+  }, [fetchBlogPosts, isMounted]);
   return (
     <div
       className={`py-4 flex flex-col flex-wrap justify-center ${
@@ -27,7 +42,7 @@ export default function Blogs() {
       {post.map((blog) => (
         <div key={blog.id} className="py-4 justify-center self-center">
           <a
-            href="#"
+            href="https://resume-srpp.onrender.com/"
             className={`text-left block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 ${
               theme === "dark"
                 ? "dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
