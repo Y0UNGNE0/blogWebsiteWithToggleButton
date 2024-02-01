@@ -15,7 +15,7 @@ export default function Blogs() {
   // eslint-disable-next-line
   useEffect(() => {
     fetchBlogPosts();
-  }, []);
+  }, [page]);
 
   return (
     <div
