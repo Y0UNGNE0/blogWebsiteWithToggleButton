@@ -11,10 +11,12 @@ export default function Blogs() {
     handlePageChange,
     theme,
   } = useContext(AppContext);
-
   // eslint-disable-next-line
   useEffect(() => {
+    // eslint-disable-next-line
+
     fetchBlogPosts();
+    // eslint-disable-next-line
   }, [page]);
 
   return (
