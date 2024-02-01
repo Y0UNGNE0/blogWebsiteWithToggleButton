@@ -30,7 +30,7 @@ export default function Blogs() {
       {post.map((blog) => (
         <div key={blog.id} className="py-4 justify-center self-center">
           <a
-            href="https://resume-srpp.onrender.com/"
+            href="https://builtin.com/artificial-intelligence"
             className={`text-left block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 ${
               theme === "dark"
                 ? "dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
